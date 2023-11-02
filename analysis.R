@@ -3,14 +3,18 @@ library(car)
 
 options(scipen=999)
 
+# Get openpowerlifting.csv from Kaggle
+# https://www.kaggle.com/datasets/open-powerlifting/powerlifting-database
+
 data <- read.csv("openpowerlifting.csv")
-sg <- read.csv("lift percentages.csv")
+sg <- read.csv("sg_lift_percentages.csv")
 
 tested <- subset(data, Tested == "Yes")
 tested <- subset(tested, Equipment == "Raw")
 tested <- subset(tested, Event == "SBD")
 tested <- subset(tested, Division == "Open")
 
+# Get percentage of total
 tested$squatpct <- (tested$Best3SquatKg / tested$TotalKg)*100
 tested$benchpct <- (tested$Best3BenchKg / tested$TotalKg)*100
 tested$dlpct <- (tested$Best3DeadliftKg / tested$TotalKg)*100
@@ -26,7 +30,8 @@ sg_dl <- sg$deadlift
 
 # Check normality
 qqPlot(opl_bench)
-shapiro.test(sample(opl_bench, size=5000))
+shapiro.test(sample(opl_bench, size=5000))  # shapiro.test won't allow
+                                            # samples with n > 5000.
 qqPlot(sg_bench, line = "quartile")
 shapiro.test(sg_bench)
 
@@ -37,4 +42,4 @@ wc_test_result <- wilcox.test(opl_bench, sg_bench)
 print(wc_test_result)
 
 # OPL Bench Median: 22.6%
-# SG Bench Median: 24.10%
+# SG Bench Median: 24.00%
