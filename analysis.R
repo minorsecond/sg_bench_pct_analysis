@@ -43,4 +43,4 @@ wc_test_result <- wilcox.test(sg_bench, opl_bench, alternative = "greater",
 print(wc_test_result)
 
 # OPL Bench Median: 22.6%
-# SG Bench Median: 24.00%
+# SG Bench Median: 24.10%
