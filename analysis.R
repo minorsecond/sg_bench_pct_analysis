@@ -38,7 +38,8 @@ shapiro.test(sg_bench)
 # SG data is normal, OPL data is not. Must use nonparametric test (MWU)
 
 #Perform the Mann-Whitney U test
-wc_test_result <- wilcox.test(opl_bench, sg_bench)
+wc_test_result <- wilcox.test(sg_bench, opl_bench, alternative = "greater",
+                              paired = F, conf.level = 0.9, conf.int = T)
 print(wc_test_result)
 
 # OPL Bench Median: 22.6%
